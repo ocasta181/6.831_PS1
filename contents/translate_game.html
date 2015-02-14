@@ -7,17 +7,38 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Ready, Set, Translate !</title>
-    <link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
-    <link type="text/css" href="translate_game.css" rel="stylesheet" />
+    <!--<link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+    <link type="text/css" href="translate_game.css" rel="stylesheet" />-->
 
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+    
     <script type="text/javascript" src="jquery/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
     <script type="text/javascript" src="dicts.json"></script>
     <script type="text/javascript" src="translate_game.js"></script>
 
   </head>
-  <body>
+  <body ng-app="myApp">
     <!-- Your HTML here -->
-
+    <div ng-controller="myController">
+      <h1>Translate from {{lang_from}} to {{lang_to}}</h1>
+      <table>
+        <tr>
+          <th>{{lang_from}}</th>
+          <th>{{lang_to}}</th>
+          <th>Answer</th>
+        </tr>
+        <tr>
+          <td>{{current_word}}</td>
+          <td><input ng-model="input" autofocus>{{user_answer}}</td>
+          <td><button ng-click="do_submit()">See Answer</button></td>
+        </tr>
+        <tr ng-repeat="translation in translations">
+          <td>{{translation.source}}</td>
+          <td>{{translation.translation}}</td>
+          <td>{{translation.correct}}</td>
+        </tr>
+      </table>
+    </div>
   </body>
 </html>
