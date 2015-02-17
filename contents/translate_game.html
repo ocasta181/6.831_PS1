@@ -7,8 +7,8 @@
   <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
     <title>Ready, Set, Translate !</title>
-    <!--<link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
-    <link type="text/css" href="translate_game.css" rel="stylesheet" />-->
+    <link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
+    <link type="text/css" href="translate_game.css" rel="stylesheet" />
 
     <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
     
@@ -29,14 +29,14 @@
           <th>Answer</th>
         </tr>
         <tr>
-          <td>{{current_word}}</td>
-          <td><input ng-model="input" autofocus>{{user_answer}}</td>
-          <td><button ng-click="do_submit()">See Answer</button></td>
+          <td id="form_row" ng-class="bold">{{current_word}}</td>
+          <td id="form_row"><form ng-submit="do_submit()"><input id='input' ng-model="user_answer" autofocus></form></td>
+          <td id="form_row"><button ng-click="do_submit()">See Answer</button></td>
         </tr>
         <tr ng-repeat="translation in translations">
-          <td>{{translation.source}}</td>
-          <td>{{translation.translation}}</td>
-          <td>{{translation.correct}}</td>
+          <td ng-class="set_style({{translation.correct}}, 'source')">{{translation.source}}</td>
+          <td ng-class="set_style({{translation.correct}}, 'translation')">{{translation.translation}}</td>
+          <td ng-class="set_style({{translation.correct}}, 'correct')">{{translation.correct}}</td>
         </tr>
       </table>
     </div>
