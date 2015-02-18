@@ -31,7 +31,7 @@
         </tr>
         <tr>
           <td id="form_row" ng-class="bold">{{current_word}}</td>
-          <td id="form_row"><form id='text_form' ng-submit="do_submit()"><input id='input' ng-model="user_answer" autofocus></form></td>
+          <td id="form_row"><form id='text_form' ng-submit="do_submit()"><input id="autocomplete" autocomplete ng-model="user_answer" ng-click="do_submit()" autofocus></form></td>
           <td id="form_row"><button id='submit_button' ng-click="do_submit()">See Answer</button></td>
         </tr>
         <tr ng-repeat="translation in translations">

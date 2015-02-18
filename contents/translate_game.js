@@ -71,30 +71,47 @@
 			};
 			return style;
 		};
-		$("#text.form").submit(function(){
+		$("#text_form").submit(function(){
 			$scope.do_submit();
 			return false;
 		});
 
 	}])
-/**
-	.directive('autocomplete', ['$scope', function($timeout){
-		return function(scope, element, attrs){
-			console.log(scope.autocomplete_dict);
-			element.autocomplete({
+
+	.directive('autocomplete', ['$timeout', function($timeout){
+		var directive = {
+			restrict: "EA",
+			link: link
+
+		};
+
+		return directive;
+		function link(scope, elem, attrs){
+			scope.submit = function(val){
+					console.log("LOOK AT ME: ",val);
+					text_form.submit = scope.do_submit();
+				};
+			var myElement = $("#autocomplete");
+			myElement.autocomplete({
+			//angular.element().find("#autocomplete").autocomplete({	
 				source: scope.autocomplete_dict,
 
-				select: function(){
+				
+				select: function(event, ui){
+					var self = this;
 					$timeout(function(){
-						element.trigger('input');
+						myElement.trigger('input');
+						scope.user_answer = ui.item.value;
+			    		scope.submit(ui.item.value);
 
 					}, 0);
 				}
 			});
 		};
-	}])\
-*/
+	}])
 
+
+/*
 
 		$("#input").autocomplete({
 				source: function(request, response){
@@ -127,6 +144,7 @@
 
 			    }
 		});
+*/
 
 
 
