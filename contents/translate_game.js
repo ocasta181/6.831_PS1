@@ -8,7 +8,8 @@
 	var current_dict	= dicts[lang_to][lang_from]; // keys: words in @lang_to, values: corresponding words in @lang_from 	
 
 
-	angular.module('myApp', [])
+	angular.module('myApp', ['ngRoute'])
+
 	.controller('myController',['$scope', function($scope){
 		$scope.lang_to="English";
 		$scope.lang_from="Spanish";
@@ -30,14 +31,15 @@
 
 
 		$scope.do_submit = function(){
+			console.log("WE GOT THIS FAR!")
 			$scope.current_word == $scope.user_answer ? 1 : $scope.current_answer;
 			var is_correct = ($scope.current_answer == $scope.user_answer ? 1 : $scope.current_answer);
-			console.log(is_correct);
-			console.log(" ");
+			console.log($scope.current_answer);
+			console.log($scope.translations)
 			$scope.translations.unshift({"source":$scope.current_word, 
 										"translation":$scope.user_answer, 
 										"correct":is_correct});
-
+			console.log($scope.translations)
 			$scope.random_input = Math.floor(Math.random()*$scope.current_dict.length);
 
 			$scope.user_answer="";
@@ -48,7 +50,6 @@
 
 		$scope.set_style = function(correct, row){
 			var style;
-			//console.log(correct);
 			if(row == 'source'){
 					if(correct!=1){
 						style = 'red';
@@ -70,6 +71,30 @@
 			};
 			return style;
 		};
+		$("#text.form").submit(function(){
+			$scope.do_submit();
+			return false;
+		});
+
+	}])
+/**
+	.directive('autocomplete', ['$scope', function($timeout){
+		return function(scope, element, attrs){
+			console.log(scope.autocomplete_dict);
+			element.autocomplete({
+				source: scope.autocomplete_dict,
+
+				select: function(){
+					$timeout(function(){
+						element.trigger('input');
+
+					}, 0);
+				}
+			});
+		};
+	}])\
+*/
+
 
 		$("#input").autocomplete({
 				source: function(request, response){
@@ -78,21 +103,32 @@
 				},
 				minLength: 2,
 				autoFocus: true,
-				delay: 500,
 				messages: {
 			        noResults: '',
 			        results: function() {}
 			    },
+
 			    select: function(event, ui){
-			    	if(ui.item){
-			    		$(event.target).val(ui.item.value);
-			    	}
-			    	console.log(event.target.form)
-			    	$(event.target.form).submit();
+			    		console.log("ui.item = ");
+			    		console.log(ui.item);
+			    		console.log("event.target = ");
+			    		console.log(event.target);
+			    		console.log("event.target.form = ");
+			    		console.log(event.target.form);
+			    		console.log("ui.item.value = ");
+			    		console.log(ui.item.value);
+			    		console.log("$(event.target).val(ui.item.value)= ");
+			    		console.log($(event.target).val(ui.item.value));
+			    		console.log("user_answer = ");
+			    		console.log($scope.user_answer);
+			    		//$(event.target).val(ui.item.value);
+			    		$scope.user_answer = ui.item.value;
+			    		$(event.target ).submit();
+
 			    }
 		});
 
-	}]);
+
 
 })();
 

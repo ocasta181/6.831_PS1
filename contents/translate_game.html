@@ -10,7 +10,8 @@
     <link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
     <link type="text/css" href="translate_game.css" rel="stylesheet" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
     
     <script type="text/javascript" src="jquery/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -30,8 +31,8 @@
         </tr>
         <tr>
           <td id="form_row" ng-class="bold">{{current_word}}</td>
-          <td id="form_row"><form ng-submit="do_submit()"><input id='input' ng-model="user_answer" autofocus></form></td>
-          <td id="form_row"><button ng-click="do_submit()">See Answer</button></td>
+          <td id="form_row"><form id='text_form' ng-submit="do_submit()"><input id='input' ng-model="user_answer" autofocus></form></td>
+          <td id="form_row"><button id='submit_button' ng-click="do_submit()">See Answer</button></td>
         </tr>
         <tr ng-repeat="translation in translations">
           <td ng-class="set_style({{translation.correct}}, 'source')">{{translation.source}}</td>
