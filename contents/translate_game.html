@@ -10,8 +10,7 @@
     <link type="text/css" href="jquery/css/ui-lightness/jquery-ui-1.10.0.custom.css" rel="stylesheet" />
     <link type="text/css" href="translate_game.css" rel="stylesheet" />
 
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script>
-    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.2.7/angular-route.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.3.13/angular.js"></script> <!-- this links to the main angular app -->
     
     <script type="text/javascript" src="jquery/js/jquery-1.9.0.min.js"></script>
     <script type="text/javascript" src="jquery/js/jquery-ui-1.10.0.custom.min.js"></script>
@@ -19,9 +18,8 @@
     <script type="text/javascript" src="translate_game.js"></script>
 
   </head>
-  <body ng-app="myApp">
-    <!-- Your HTML here -->
-    <div ng-controller="myController">
+  <body ng-app="myApp">  <!-- This defines the scope of the Angular app -->
+    <div ng-controller="myController">  <!-- This defines the scope of the angular controller -->
       <h1>Translate from {{lang_from}} to {{lang_to}}</h1>
       <table>
         <tr>
@@ -29,15 +27,16 @@
           <th>{{lang_to}}</th>
           <th>Answer</th>
         </tr>
-        <tr>
+        <tr>  <!-- This row contains the main current dictionary word to be translated, the response box, and the submit button -->
           <td id="form_row" ng-class="bold">{{current_word}}</td>
-          <td id="form_row"><form id='text_form' ng-submit="do_submit()"><input id="autocomplete" autocomplete ng-model="user_answer" ng-click="do_submit()" autofocus></form></td>
+          <td id="form_row"><form id='text_form' ng-submit="do_submit()"><input autocomplete id="response_box" ng-model="user_answer" ng-click="do_submit()" autofocus></form></td>
           <td id="form_row"><button id='submit_button' ng-click="do_submit()">See Answer</button></td>
         </tr>
-        <tr ng-repeat="translation in translations">
-          <td ng-class="set_style({{translation.correct}}, 'source')">{{translation.source}}</td>
-          <td ng-class="set_style({{translation.correct}}, 'translation')">{{translation.translation}}</td>
-          <td ng-class="set_style({{translation.correct}}, 'correct')">{{translation.correct}}</td>
+
+        <tr ng-repeat="translation in previous_translations"> <!-- for each previous translation repeat the following row and set the style for cell -->
+          <td ng-class="set_style({{translation.previous_correct}}, 'previous_word')">{{translation.previous_word}}</td>
+          <td ng-class="set_style({{translation.previous_correct}}, 'previous_answer')">{{translation.previous_answer}}</td>
+          <td ng-class="set_style({{translation.previous_correct}}, 'previous_correct')">{{translation.previous_correct}}</td>
         </tr>
       </table>
     </div>
